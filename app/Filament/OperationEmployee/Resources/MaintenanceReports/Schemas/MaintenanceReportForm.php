@@ -15,20 +15,21 @@ class MaintenanceReportForm
         return $schema
             ->components([
                 Select::make('vehicle_id')
-                    ->relationship('vehicle', 'id')
+                    ->relationship('vehicle', 'vin')
                     ->required(),
                 Select::make('employee_id')
-                    ->relationship('employee', 'id')
+                    ->label('Employee')
+                    ->relationship('employee', 'full_name')
                     ->required(),
                 DateTimePicker::make('entered_at')
                     ->required(),
                 DateTimePicker::make('exited_at'),
                 TextInput::make('cost')
-                    ->required()
+
                     ->numeric()
                     ->prefix('$'),
                 Textarea::make('descriptopn')
-                    ->required()
+
                     ->columnSpanFull(),
             ]);
     }

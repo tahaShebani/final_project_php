@@ -49,6 +49,7 @@ class MaintenanceReport extends Model
 
     public function employee(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+          ->where('role', 'operation_employee');;
     }
 }

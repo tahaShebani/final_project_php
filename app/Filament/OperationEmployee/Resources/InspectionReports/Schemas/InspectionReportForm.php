@@ -14,13 +14,13 @@ class InspectionReportForm
         return $schema
             ->components([
                 Select::make('vehicle_id')
-                    ->relationship('vehicle', 'id')
+                    ->relationship('vehicle', 'vin')
                     ->required(),
                 Select::make('reservation_id')
                     ->relationship('reservation', 'id')
                     ->required(),
                 Select::make('inspector_id')
-                    ->relationship('inspector', 'id')
+                    ->relationship('inspector', 'full_name')
                     ->required(),
                 Select::make('type')
                     ->options(['pickup' => 'Pickup', 'return' => 'Return'])

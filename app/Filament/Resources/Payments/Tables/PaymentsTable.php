@@ -1,36 +1,32 @@
 <?php
 
-namespace App\Filament\Resources\CarModels\Tables;
+namespace App\Filament\Resources\Payments\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CarModelsTable
+class PaymentsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('carClass.class') // Format: relationshipName.columnName
-                 ->label('Car Class')
-                ->sortable()
-                ->searchable(),
-                TextColumn::make('brand')
-                    ->searchable(),
-                TextColumn::make('model_name')
-                    ->searchable(),
-                TextColumn::make('year')
-                    ->searchable(),
-                TextColumn::make('fuel_type')
-                    ->searchable(),
-                TextColumn::make('transmission')
-                    ->searchable(),
-                TextColumn::make('seating_capacity')
+                TextColumn::make('amount')
                     ->numeric()
+                    ->sortable(),
+                TextColumn::make('payment_source'),
+                TextColumn::make('payment_method'),
+                TextColumn::make('processed_by')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('transaction.id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('paied_at')
+                    ->dateTime()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -40,7 +36,12 @@ class CarModelsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                ImageColumn::make('image_path')->disk('public'),
+                TextColumn::make('resevation_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('reservations_id')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 //

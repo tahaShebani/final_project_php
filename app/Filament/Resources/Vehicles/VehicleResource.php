@@ -7,6 +7,7 @@ use App\Filament\Resources\Vehicles\Pages\EditVehicle;
 use App\Filament\Resources\Vehicles\Pages\ListVehicles;
 use App\Filament\Resources\Vehicles\Schemas\VehicleForm;
 use App\Filament\Resources\Vehicles\Tables\VehiclesTable;
+use App\Filament\Resources\Vehicles\Widgets\VehicleStatsOverview;
 use App\Models\Vehicle;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -47,4 +48,11 @@ class VehicleResource extends Resource
             'edit' => EditVehicle::route('/{record}/edit'),
         ];
     }
+
+    public static function getWidgets(): array
+{
+    return [
+        VehicleStatsOverview::class,
+    ];
+}
 }

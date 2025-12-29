@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Observers;
+
+use App\Models\InspectionReport;
+
+class InspectionReportObserver
+{
+    /**
+     * Handle the InspectionReport "created" event.
+     */
+    public function created(InspectionReport $inspectionReport): void
+    {
+        $vehicle = $inspectionReport->vehicle;
+
+        if ($vehicle) {
+            // 2. Update the vehicle's mileage and status
+            // Assuming your report has 'mileage' and 'status' fields
+            $status='available';
+            if($inspectionReport->status=='out_of_service'){
+                $status='out_of_service';
+            }else if($inspectionReport->status=='needs_maintenance'){
+                       $status= 'maintenance';
+            }
+            $vehicle->update([
+                'mileage' => $inspectionReport->mileage,
+
+                'status'  => $status,
+            ]);
+        }
+    }
+
+    /**
+     * Handle the InspectionReport "updated" event.
+     */
+    public function updated(InspectionReport $inspectionReport): void
+    {
+               $vehicle = $inspectionReport->vehicle;
+
+        if ($vehicle) {
+            // 2. Update the vehicle's mileage and status
+            // Assuming your report has 'mileage' and 'status' fields
+            $status='available';
+            if($inspectionReport->status=='out_of_service'){
+                $status='out_of_service';
+            }else if($inspectionReport->status=='needs_maintenance'){
+                       $status= 'maintenance';
+            }
+            $vehicle->update([
+                'mileage' => $inspectionReport->mileage,
+
+                'status'  => $status,
+            ]);
+        }
+    }
+
+    /**
+     * Handle the InspectionReport "deleted" event.
+     */
+    public function deleted(InspectionReport $inspectionReport): void
+    {
+        //
+    }
+
+    /**
+     * Handle the InspectionReport "restored" event.
+     */
+    public function restored(InspectionReport $inspectionReport): void
+    {
+        //
+    }
+
+    /**
+     * Handle the InspectionReport "force deleted" event.
+     */
+    public function forceDeleted(InspectionReport $inspectionReport): void
+    {
+        //
+    }
+}

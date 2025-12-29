@@ -14,9 +14,10 @@ class VehiclesTable
     {
         return $table
             ->columns([
-                TextColumn::make('car_model')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('carModel.model_name') // Format: relationshipName.columnName
+                ->label('car_model')
+                ->sortable()
+                ->searchable(),
                 TextColumn::make('vin')
                     ->searchable(),
                 TextColumn::make('license_plate')

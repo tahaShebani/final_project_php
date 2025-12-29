@@ -53,6 +53,8 @@ class InspectionReport extends Model
 
     public function inspector(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+                ->where('role', 'operation_employee');
+
     }
 }

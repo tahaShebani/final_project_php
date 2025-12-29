@@ -38,6 +38,8 @@ class VehicleForm
             'reserved' => 'Reserved',
             'rented' => 'Rented',
             'maintenance' => 'Maintenance',
+            'out_of_service' => 'Out Of Service',
+
         ])
                     ->required(),
                 Select::make('current_location_id')
