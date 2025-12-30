@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Vehicles\Schemas;
+namespace App\Filament\BookingAgent\Resources\Vehicles\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use Illuminate\Support\HtmlString;
 
 class VehicleForm
 {
@@ -14,31 +12,14 @@ class VehicleForm
     {
         return $schema
             ->components([
-                Select::make('car_model')
-                        ->relationship('carModel', 'model_name')
-                        ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->model_name} ({$record->year})")
-                        ->searchable(['model_name', 'year'])
-                        ->preload()
-                        ->required(),
+                TextInput::make('car_model')
+                    ->required()
+                    ->numeric(),
                 TextInput::make('vin')
                     ->required(),
                 TextInput::make('license_plate')
                     ->required(),
                 TextInput::make('color')
-                ->suffix(function ($state) {
-
-                    return new HtmlString('
-                        <div style="
-                            width: 30px;
-                            height: 30px;
-                            border-radius: 50%;
-                            background-color: ' . ($state ?? "transparent") . ';
-                            border: 1px solid #e5e7eb;
-                        "></div>
-                    ');
-                })
-                ->reactive()
-                ->lazy()
                     ->required(),
                 TextInput::make('mileage')
                     ->required()
@@ -53,8 +34,7 @@ class VehicleForm
             'reserved' => 'Reserved',
             'rented' => 'Rented',
             'maintenance' => 'Maintenance',
-            'out_of_service' => 'Out Of Service',
-
+            'out_of_service' => 'Out of service',
         ])
                     ->required(),
                 Select::make('current_location_id')

@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
     use HasFactory;
-
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    public $payment_method;
     protected $fillable = [
         'reservation_id',
         'vehicle_id',
@@ -56,12 +58,13 @@ class Transaction extends Model
 
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo(Vehicle::class);
+        return $this->belongsTo(Vehicle::class)
+        ->whereIn('status',['available','reserved']);
     }
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->where('role','customer');
     }
 
     public function pickupLocation(): BelongsTo
@@ -72,5 +75,11 @@ class Transaction extends Model
     public function returnLocation(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+        public function processedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'processed_by')
+            ->where('role','booking_agent');
     }
 }

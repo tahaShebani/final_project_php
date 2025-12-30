@@ -12,10 +12,10 @@ class InspectionReportObserver
     public function created(InspectionReport $inspectionReport): void
     {
         $vehicle = $inspectionReport->vehicle;
+        $reservation = $inspectionReport->reservation;
 
         if ($vehicle) {
-            // 2. Update the vehicle's mileage and status
-            // Assuming your report has 'mileage' and 'status' fields
+
             $status='available';
             if($inspectionReport->status=='out_of_service'){
                 $status='out_of_service';
@@ -26,6 +26,35 @@ class InspectionReportObserver
                 'mileage' => $inspectionReport->mileage,
 
                 'status'  => $status,
+            ]);
+        }
+            if ($reservation) {
+
+
+            if($inspectionReport->status=='out_of_service' || $inspectionReport->status=='needs_maintenance'){
+                $reservation->update([
+
+
+                'status'  => 'rereserve',
+            ]);
+            }else{
+            $reservation->update([
+
+
+                'status'  => 'confirmed',
+            ]);
+             $vehicle->update([
+
+
+                'status'  => 'reserved',
+            ]);
+            }
+
+        }
+        $transaction=$reservation->transaction;
+        if ($transaction && $transaction->status=='need_inspaction') {
+                $transaction->update([
+                'status'  => 'closed',
             ]);
         }
     }

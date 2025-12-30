@@ -2,6 +2,9 @@
 
 namespace App\Filament\BookingAgent\Resources\Reservations\Tables;
 
+use App\Filament\BookingAgent\Resources\Transactions\TransactionResource;
+use App\Models\Reservation;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -14,10 +17,14 @@ class ReservationsTable
     {
         return $table
             ->columns([
-                TextColumn::make('customer.id')
+                TextColumn::make('id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('vehicle.id')
+                TextColumn::make('customer.full_name')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('vehicle.vin')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('pickupLocation.name')
@@ -38,7 +45,8 @@ class ReservationsTable
                 TextColumn::make('return_date')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')->searchable(),
+
                 TextColumn::make('total_price')
                     ->numeric()
                     ->sortable(),
@@ -59,8 +67,19 @@ class ReservationsTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->actions([
+                Action::make('pickup')
+                    ->label('pickup')
+                    ->icon('heroicon-m-key')
+                    ->color('success')
+                    // This generates the URL: /admin/inspection-reports/create?reservation_id=5
+                    ->url(fn (Reservation $record): string =>
+                        TransactionResource::getUrl('create', [
+                            'reservations_id' => $record->id,
+                        ])
+                    )
+]);;
     }
 }

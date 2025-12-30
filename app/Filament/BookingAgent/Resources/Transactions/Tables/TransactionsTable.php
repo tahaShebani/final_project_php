@@ -16,12 +16,15 @@ class TransactionsTable
             ->columns([
                 TextColumn::make('reservation.id')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('vehicle.id')
+                TextColumn::make('vehicle.vin')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('customer.id')
+                TextColumn::make('customer.full_name')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('total_amount')
                     ->numeric()

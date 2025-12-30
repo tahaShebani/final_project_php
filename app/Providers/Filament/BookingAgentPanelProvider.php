@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\OperationEmployee\Widgets\RecentReservations;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,6 +27,7 @@ class BookingAgentPanelProvider extends PanelProvider
         return $panel
             ->id('booking_agent')
             ->path('booking_agent')
+            ->brandName('Bookin Agent')
             ->login()
             ->colors([
                 'primary' => Color::Green,

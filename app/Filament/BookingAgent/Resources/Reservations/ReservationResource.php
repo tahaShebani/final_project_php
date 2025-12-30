@@ -7,6 +7,7 @@ use App\Filament\BookingAgent\Resources\Reservations\Pages\EditReservation;
 use App\Filament\BookingAgent\Resources\Reservations\Pages\ListReservations;
 use App\Filament\BookingAgent\Resources\Reservations\Schemas\ReservationForm;
 use App\Filament\BookingAgent\Resources\Reservations\Tables\ReservationsTable;
+use App\Filament\BookingAgent\Resources\Reservations\Widgets\ReservationOverview;
 use App\Models\Reservation;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -47,4 +48,10 @@ class ReservationResource extends Resource
             'edit' => EditReservation::route('/{record}/edit'),
         ];
     }
+public static function getWidgets(): array
+{
+    return [
+        ReservationOverview::class,
+    ];
+}
 }

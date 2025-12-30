@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reservation extends Model
 {
     use HasFactory;
-
+use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +34,7 @@ class Reservation extends Model
      *
      * @return array<string, string>
      */
+    public $payment_method;
     protected function casts(): array
     {
         return [
@@ -51,12 +53,17 @@ class Reservation extends Model
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->where('role','customer');
+    }
+        public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
     }
 
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo(Vehicle::class);
+        return $this->belongsTo(Vehicle::class)
+        ->where('status','available');
     }
 
     public function pickupLocation(): BelongsTo
@@ -67,5 +74,10 @@ class Reservation extends Model
     public function dropoffLocation(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+        public function processedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'processed_by')
+            ->where('role','booking_agent');
     }
 }

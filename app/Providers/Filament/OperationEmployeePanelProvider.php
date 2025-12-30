@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\OperationEmployee\Widgets\RecentReservations;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,6 +27,7 @@ class OperationEmployeePanelProvider extends PanelProvider
         return $panel
             ->id('operation_employee')
             ->path('operation_employee')
+            ->brandName('Operation Employee')
             ->login()
             ->colors([
                 'primary' => Color::Blue,
@@ -38,6 +40,7 @@ class OperationEmployeePanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/OperationEmployee/Widgets'), for: 'App\Filament\OperationEmployee\Widgets')
             ->widgets([
                 AccountWidget::class,
+                RecentReservations::class
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -36,9 +36,6 @@ class PaymentsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('resevation_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('reservations_id')
                     ->numeric()
                     ->sortable(),

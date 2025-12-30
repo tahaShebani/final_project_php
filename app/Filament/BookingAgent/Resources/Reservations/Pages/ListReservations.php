@@ -3,6 +3,7 @@
 namespace App\Filament\BookingAgent\Resources\Reservations\Pages;
 
 use App\Filament\BookingAgent\Resources\Reservations\ReservationResource;
+use App\Filament\BookingAgent\Resources\Reservations\Widgets\ReservationOverview;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,12 @@ class ListReservations extends ListRecords
     {
         return [
             CreateAction::make(),
+        ];
+    }
+        protected function getHeaderWidgets(): array
+    {
+        return [
+            ReservationOverview::class,
         ];
     }
 }

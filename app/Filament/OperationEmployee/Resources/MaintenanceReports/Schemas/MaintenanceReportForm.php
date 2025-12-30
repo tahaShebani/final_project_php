@@ -7,19 +7,24 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class MaintenanceReportForm
 {
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Select::make('vehicle_id')
                     ->relationship('vehicle', 'vin')
-                    ->required(),
+                    ->required()
+                    ,
                 Select::make('employee_id')
                     ->label('Employee')
                     ->relationship('employee', 'full_name')
+                    ->default(Auth::user()->id)
+                    ->disabled(fn () => !(Auth::user()->role=='admin'))
                     ->required(),
                 DateTimePicker::make('entered_at')
                     ->required(),

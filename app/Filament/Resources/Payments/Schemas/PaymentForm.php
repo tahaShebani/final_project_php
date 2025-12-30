@@ -17,25 +17,34 @@ class PaymentForm
                     ->required()
                     ->numeric(),
                 Select::make('payment_source')
-                    ->options(['online' => 'Online', 'in-person' => 'In person'])
+                    ->options([ 'in-person' => 'In person'])
                     ->required(),
                 Select::make('payment_method')
                     ->options(['cash' => 'Cash', 'card' => 'Card'])
                     ->required(),
-                TextInput::make('processed_by')
-                    ->required()
-                    ->numeric(),
-                Select::make('transaction_id')
-                    ->relationship('transaction', 'id')
-                    ->default(null),
+                    Select::make('processed_by')
+                    ->label('Processed By')
+                    ->relationship('processedBy', 'full_name')
+                    ->required(),
                 DateTimePicker::make('paied_at')
                     ->required(),
-                TextInput::make('resevation_id')
-                    ->numeric()
-                    ->default(null),
-                TextInput::make('reservations_id')
-                    ->numeric()
-                    ->default(null),
+                    Select::make('For')
+                        ->options([
+                            'transaction' => 'Transaction ',
+                            'reservation' => 'Reservation',
+                        ])
+                    ->dehydrated(false)
+                    ->required()
+                    ->live(),
+                Select::make('transaction_id')
+                    ->relationship('transaction', 'id')
+                    ->default(null)
+                    ->visible(fn ($get) => $get('For') === 'transaction'),
+
+                Select::make('reservations_id')
+                    ->relationship('reservation', 'id')
+                    ->default(null)
+                    ->visible(fn ($get) => $get('For') === 'reservation'),
             ]);
     }
 }
