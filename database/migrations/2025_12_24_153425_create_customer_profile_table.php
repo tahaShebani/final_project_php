@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('license_expiry_date');
             $table->dateTime('date_of_birth');
             $table->string('address');
+            $table->softDeletes();
             $table->timestamps();
         });
 
