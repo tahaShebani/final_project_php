@@ -29,7 +29,6 @@ return new class extends Migration
             $table->unsignedBigInteger('return_location_id');
             $table->foreign('return_location_id')->references('id')->on('locations');
             $table->enum('status', ["open",'closed']);
-            $table->softDeletes();
             $table->timestamps();
         });
 
