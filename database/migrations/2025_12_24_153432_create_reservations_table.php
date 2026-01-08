@@ -29,6 +29,7 @@ return new class extends Migration
             $table->dateTime('return_date');
             $table->enum('status', ["pending",'confirmed','cancelled']);
             $table->double('total_price');
+            $table->softDeletes();
             $table->timestamps();
         });
 
