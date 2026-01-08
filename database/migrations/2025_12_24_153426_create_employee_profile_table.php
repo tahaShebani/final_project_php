@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->softDeletes();
             $table->timestamps();
         });
 
