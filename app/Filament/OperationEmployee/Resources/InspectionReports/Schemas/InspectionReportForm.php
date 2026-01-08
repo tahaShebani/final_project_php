@@ -41,12 +41,14 @@ class InspectionReportForm
                     ->relationship('vehicle', 'vin')
                     ->disabled(fn () => !(Auth::user()->role=='admin'))
                     ->required()
+                    ->dehydrated(true)
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
                     ->afterStateHydrated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
                 Select::make('reservation_id')
                     ->relationship('reservation', 'id')
                     ->default(fn () => Request::query('reservation_id'))
                     ->disabled(fn () => !(Auth::user()->role=='admin'))
+                    ->dehydrated(true)
                     ->required()
                     ->live()
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
@@ -55,10 +57,10 @@ class InspectionReportForm
                     ->relationship('inspector', 'full_name')
                     ->default(Auth::user()->id)
                     ->disabled(fn () => !(Auth::user()->role=='admin'))
+                    ->dehydrated(true)
                     ->required(),
                 Select::make('type')
                     ->options(['pickup' => 'Pickup', 'return' => 'Return'])
-                    ->disabled(fn () => !(Auth::user()->role=='admin'))
                     ->required(),
                 TextInput::make('fuel_level')
                     ->required()

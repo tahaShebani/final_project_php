@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\Payment;
 use App\Models\Reservation;
+use App\Models\Vehicle;
+
 
 class ReservationObserver
 {
@@ -12,17 +14,13 @@ class ReservationObserver
      */
     public function created(Reservation $reservation): void
     {
-        if($reservation->processed_by){
-        Payment::create([
-        'amount'=> $reservation->total_price,
-        'payment_source'=>'online',
-        'payment_method'=>'card',
-        'processed_by'=>null,
-        'transaction_id'=>null,
-        'reservations_id'=>$reservation->id,
-        'paied_at'=>$reservation->reserved_at,
+        $vehicle = Vehicle::where('id', $reservation->vehicle_id);
+        $vehicle->update([
+            'status'=>'reserved',
+            'reserved_until'=> $reservation->return_date,
+            'returned_at_id'=>$reservation->dropoff_location_id,
         ]);
-        }
+
 
     }
 

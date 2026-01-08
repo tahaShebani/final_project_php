@@ -37,6 +37,9 @@ class VehiclesTable
                 TextColumn::make('currentLocation.name')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('returendAt.name')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

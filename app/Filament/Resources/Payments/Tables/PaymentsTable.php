@@ -22,9 +22,6 @@ class PaymentsTable
                 TextColumn::make('processed_by')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('transaction.id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('paied_at')
                     ->dateTime()
                     ->sortable(),
@@ -38,6 +35,8 @@ class PaymentsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('reservations_id')
                     ->numeric()
+                    ->sortable(),
+                TextColumn::make('status')
                     ->sortable(),
             ])
             ->filters([

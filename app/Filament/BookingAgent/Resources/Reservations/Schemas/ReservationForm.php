@@ -56,7 +56,8 @@ class ReservationForm
 
     $vehicle = Vehicle::find($vehicleId);
     $pricePerDay = $vehicle?->price ?? 0;
-
+    $location=$vehicle->current_location_id;
+    $set('pickup_location_id', $location);
     $set('total_price', number_format($days * $pricePerDay, 2, '.', ''));
 }
     public static function configure(Schema $schema): Schema
@@ -81,7 +82,10 @@ class ReservationForm
                     ->afterStateHydrated(fn (Get $get, Set $set) => self::vehicleChose($get, $set)),
                 Select::make('pickup_location_id')
                     ->relationship('pickupLocation', 'name')
-                    ->afterStateHydrated(fn (Get $get, Set $set) => self::vehicleChose($get, $set))
+                    ->required()
+                    ->live()
+                    ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
+                    ->afterStateHydrated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
                     ->required(),
                 Select::make('dropoff_location_id')
                     ->relationship('dropoffLocation', 'name')

@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('car_models',function (Blueprint $table){
+        Schema::table('vehicles',function (Blueprint $table){
         $table->timestamp('reserved_until');
        });
     }

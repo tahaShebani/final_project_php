@@ -16,10 +16,9 @@ protected function afterCreate(): void
 
         // 2. The $this->record is your newly saved Reservation
         $reservation = $this->record;
-        $reservation->vehicle->status='reserved';
 
         // 3. Create the Payment manually
-        Payment::create([
+        $payemnt = Payment::create([
             'reservations_id'  => $reservation->id,
             'amount'           => $reservation->total_price,
             'payment_method'   => $data['payment_method'], // Taken directly from the form
@@ -28,5 +27,13 @@ protected function afterCreate(): void
             'transaction_id'   => $data['transaction_id'] ?? null,
             'paied_at'         => now(),
         ]);
+
+        if(true){
+            $payemnt->update([
+            'status'=>'paid'
+        ]);
+        }
+
+
     }
 }

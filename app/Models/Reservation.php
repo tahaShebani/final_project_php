@@ -47,10 +47,22 @@ use SoftDeletes;
             'expires_at' => 'timestamp',
             'pickup_date' => 'datetime',
             'return_date' => 'datetime',
+            'return_at_id' => 'integer',
             'total_price' => 'double',
         ];
     }
 
+    public function stillNotRented(){
+        if($this->transaction_id){
+
+             return false;
+        }else{
+            return true;
+        }
+    }
+    public function setRereserve(){
+        $this->status='rereserve';
+    }
     public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class)->where('role','customer');
@@ -62,8 +74,7 @@ use SoftDeletes;
 
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo(Vehicle::class)
-        ->where('status','available');
+        return $this->belongsTo(Vehicle::class);
     }
 
     public function pickupLocation(): BelongsTo

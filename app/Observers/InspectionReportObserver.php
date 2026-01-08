@@ -43,11 +43,7 @@ class InspectionReportObserver
 
                 'status'  => 'confirmed',
             ]);
-             $vehicle->update([
 
-
-                'status'  => 'reserved',
-            ]);
             }
 
         }

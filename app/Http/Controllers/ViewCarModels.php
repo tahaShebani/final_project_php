@@ -3,14 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarClass;
+use App\Models\CarModel;
 use Illuminate\Http\Request;
+
+use function Pest\Laravel\get;
 
 class ViewCarModels extends Controller
 {
-        public function viewAll($id){
-        $carClass = CarClass::with('carModels')->findOrFail($id);
-        $carModels = $carClass->carModels;
+public function viewAll(Request $request)
+    {
 
-         return view('carModelsPage', compact('carModels'));
+        $query = CarClass::query()->with('carModels');
+
+        if ($request->has('class')) {
+            $query->where('class', $request->class);
+        $class = $query->get();
+        $cars= $class[0]->carModels;
+        }else{
+            $cars=CarModel::query()->get();
+        }
+
+
+
+
+        return view('carModelsPage', compact('cars'));
+    }
+    public function show(CarModel $carmodel){
+
+        return view('modelDetails',compact('carmodel'));
     }
 }

@@ -28,18 +28,18 @@ class CarModelForm
                     ->required(),
                     Select::make('fuel_type')
                     ->options([
-                   'Petrol',
-                   'Diesel',
-                   'Electric',
-                   'Hybrid'
+                   'Petrol'=>'Petrol',
+                   'Diesel'=>'Diesel',
+                   'Electric'=>'Electric',
+                   'Hybrid'=>'Hybrid'
                          ])->required(),
                     Select::make('transmission')
                     ->options(        [
-                        'Manual',
-                        'Automatic',
-                        'CVT',
-                        'DCT',
-                        'AMT',
+                        'Manual'=>'Manual',
+                        'Automatic'=>'Automatic',
+                        'CVT'=>'CVT',
+                        'DCT'=>'DCT',
+                        'AMT'=>'AMT',
                   ])->required(),
 
                 TextInput::make('seating_capacity')

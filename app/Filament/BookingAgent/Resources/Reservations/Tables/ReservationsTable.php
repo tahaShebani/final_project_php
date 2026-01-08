@@ -45,6 +45,10 @@ class ReservationsTable
                 TextColumn::make('return_date')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('transaction.status')
+                ->label('Rent Status')
+                ->placeholder('No Rented Yet')
+                ->searchable(),
                 TextColumn::make('status')->searchable(),
 
                 TextColumn::make('total_price')
@@ -79,7 +83,7 @@ class ReservationsTable
                         TransactionResource::getUrl('create', [
                             'reservations_id' => $record->id,
                         ])
-                    )
-]);;
+                    )->visible(fn (Reservation $record) => ($record->status === 'confirmed'&&!($record->transaction))),
+]);
     }
 }

@@ -24,6 +24,7 @@ use SoftDeletes;
         'transaction_id',
         'reservations_id',
         'paied_at',
+        'status'
     ];
 
     /**
@@ -56,6 +57,6 @@ use SoftDeletes;
 
     public function reservation(): BelongsTo
     {
-        return $this->belongsTo(Reservation::class);
+        return $this->belongsTo(Reservation::class,'reservations_id');
     }
 }
