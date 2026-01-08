@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('exited_at')->nullable();
             $table->double('cost');
             $table->text('descriptopn');
+            $table->softDeletes();
             $table->timestamps();
         });
 
