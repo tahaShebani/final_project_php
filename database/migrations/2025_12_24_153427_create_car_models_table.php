@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('fuel_type');
             $table->string('transmission');
             $table->integer('seating_capacity');
+            $table->softDeletes();
             $table->timestamps();
         });
 
