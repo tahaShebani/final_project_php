@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('car_classes', function (Blueprint $table) {
             $table->id();
             $table->string('class');
+            $table->softDeletes();
             $table->timestamps();
         });
 
