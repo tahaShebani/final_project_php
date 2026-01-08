@@ -26,6 +26,7 @@ return new class extends Migration
             $table->timestamp('reserved_until');
             $table->unsignedBigInteger('current_location_id');
             $table->foreign('current_location_id')->references('id')->on('locations');
+            $table->softDeletes();
             $table->timestamps();
         });
 
