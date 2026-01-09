@@ -5,33 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CarModel extends Model
 {
     use HasFactory;
-use SoftDeletes;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'car_class',
-        'brand',
-        'model_name',
-        'year',
-        'fuel_type',
-        'image_path',
-        'transmission',
-        'seating_capacity',
-    ];
+    use SoftDeletes;
+protected $fillable = [
+    'car_class',
+    'brand',
+    'model_name',
+    'year',
+    'fuel_type',
+    'image_path',
+    'transmission',
+    'seating_capacity',
+    'price',             // السعر
+    'doors',             // عدد الأبواب
+    'luggage_capacity',  // عدد الشنط
+];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+
     protected function casts(): array
     {
         return [
@@ -40,12 +35,23 @@ use SoftDeletes;
         ];
     }
 
+    // العلاقة مع CarClass
     public function carClass(): BelongsTo
     {
-        return $this->belongsTo(CarClass::class,'car_class');
+        return $this->belongsTo(CarClass::class, 'car_class');
     }
+
+    // العلاقة مع Vehicle
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class, 'car_model_id');
+    }
+
+    // اسم كامل للموديل
     public function getFullNameAttribute(): string
-{
-    return "{$this->model_name} ({$this->year})";
-}
+    {
+        return "{$this->model_name} ({$this->year})";
+    }
+    public function reservations() { 
+        return $this->hasMany(Reservation::class, 'vehicle_id'); }
 }

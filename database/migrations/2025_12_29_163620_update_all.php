@@ -16,7 +16,6 @@ public function up(): void
 
     foreach ($tables as $table) {
         Schema::table($table, function (Blueprint $table) {
-            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 }

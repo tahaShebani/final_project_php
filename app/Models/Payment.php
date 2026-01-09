@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model
 {
-    use HasFactory;
-use SoftDeletes;
+    use HasFactory, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,12 +18,12 @@ use SoftDeletes;
      */
     protected $fillable = [
         'amount',
+        'reservation_id',   // ✅ العمود الصحيح
         'payment_source',
         'payment_method',
         'processed_by',
         'transaction_id',
-        'reservations_id',
-        'paied_at',
+        'paid_at',          // ✅ التصحيح الإملائي
     ];
 
     /**
@@ -38,8 +38,8 @@ use SoftDeletes;
             'amount' => 'double',
             'processed_by' => 'integer',
             'transaction_id' => 'integer',
-            'reservations_id' => 'integer',
-            'paied_at' => 'timestamp',
+            'reservation_id' => 'integer', // ✅ العمود الصحيح
+            'paid_at' => 'timestamp',      // ✅ التصحيح الإملائي
         ];
     }
 

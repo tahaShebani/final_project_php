@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('vin')->unique();
             $table->string('license_plate');
             $table->string('color');
+            $table->softDeletes();
+
             $table->integer('mileage');
             $table->double('price');
             $table->enum('status', ["available",'reserved','rented','maintenance']);
-            $table->timestamp('reserved_until');
+            $table->timestamp('reserved_until')->nullable();
             $table->unsignedBigInteger('current_location_id');
             $table->foreign('current_location_id')->references('id')->on('locations');
             $table->timestamps();

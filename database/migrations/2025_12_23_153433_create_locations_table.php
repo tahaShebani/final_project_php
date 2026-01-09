@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->string('map_link');
+            $table->softDeletes();
             $table->timestamps();
         });
 
