@@ -15,7 +15,7 @@ class ViewVehicles extends Controller
         if(($request->pickup_location==null)||($request->pickup_date==null)){
              return redirect('home');
         }
-           
+
 
         if ($request->has('pickup_location') ) {
         $query->availableVechiles($request->pickup_location,$request->pickup_date);
@@ -25,8 +25,47 @@ class ViewVehicles extends Controller
         }
 
 
+        $pickup_date=$request->pickup_date;
+        $pickup_location=$request->pickup_location;
+        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location'));
+    }
+        public function viewAllFilter(Request $request)
+    {
+
+        $query = Vehicle::query()->with('carModel','currentLocation');
+
+        if(($request->pickup_location==null)||($request->pickup_date==null)){
+             return redirect('home');
+        }
 
 
-        return view('vehicleListPage', compact('vehicles'));
+        if ($request->has('pickup_location') ) {
+        $query->availableVechiles($request->pickup_location,$request->pickup_date);
+        if($request->has('classes')){
+            $selectedClasses = $request->input('classes', []);
+           $query->classes($selectedClasses);
+        }
+
+        if($request->has('models'))
+        $query->modeles($request->model);
+
+        if($request->has('min_price')||$request->has('max_price'))
+        $query->price($request->min_price,$request->max_price);
+
+        if($request->has('min_year')||$request->has('max_year'))
+        $query->year($request->min_year,$request->max_year);
+
+        if($request->has('color'))
+        $query->color($request->color);
+
+        $vehicles = $query->get();
+        }else{
+           $vehicles=Vehicle::query()->get();
+        }
+
+
+        $pickup_date=$request->pickup_date;
+        $pickup_location=$request->pickup_location;
+        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location'));
     }
 }

@@ -19,6 +19,7 @@ Route::get('/home', [App\Http\Controllers\ViewCarClasses::class, 'viewAll'])->na
 //     return view('homePage');
 // })->name('home');
 Route::get('/search', [App\Http\Controllers\ViewVehicles::class, 'viewAll'])->name('search');
+Route::get('/searchFilter', [App\Http\Controllers\ViewVehicles::class, 'viewAllFilter'])->name('searchFilter');
 
 
 

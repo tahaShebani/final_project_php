@@ -60,6 +60,47 @@ class Vehicle extends Model
             });
         });
     }
+     public function scopeClasses($query,$classes){
+            if($classes){
+     $query->whereRelation('carModel.carClass','class',$classes);
+            }
+
+
+        return $query;
+     }
+     public function scopeModeles($query,$brand){
+        if($brand){
+           $query->whereRelation('carModel','brand',$brand);
+        }
+
+         return $query;
+     }
+        public function scopeColor($query,$color){
+            if($color){
+        $query->where('color',$color);
+        }
+        return $query;
+        }
+     public function scopePrice($query,$startPrice,$endPrice){
+            if($startPrice){
+        $query->where('price','>=',$startPrice);
+        }
+
+        if($endPrice){
+            $query->where('price','<=',$endPrice);
+        }
+        return $query;
+     }
+     public function scopeYear($query,$startYear,$endtYear){
+        if($startYear){
+        $query->whereRelation('carModel','year','>=',$startYear);
+        }
+
+        if($endtYear){
+            $query->whereRelation('carModel','year','<=',$endtYear);
+        }
+        return $query;
+     }
 
     public function rereserveAll()
     {

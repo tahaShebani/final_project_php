@@ -16,7 +16,7 @@
 
             <div>
                 <x-input-label for="pickup_date" value="Pickup Date" />
-                <x-text-input id="pickup_date" name="pickup_date" type="date" class="block px-4 py-3 mt-1 w-full" />
+                <x-text-input id="pickup_date" name="pickup_date" type="date" min="{{ now()->format('Y-m-d') }}" class="block px-4 py-3 mt-1 w-full" />
             </div>
         </div>
 
