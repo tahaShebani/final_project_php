@@ -18,7 +18,7 @@ public function viewAll(Request $request)
         if ($request->has('class')) {
             $query->where('class', $request->class);
         $class = $query->get();
-        if($class){
+        if(!($class->isEmpty())){
           $cars= $class[0]->carModels;
         }else{
             $cars=CarModel::query()->get();
