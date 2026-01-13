@@ -51,7 +51,7 @@
                                 <td class="px-8 py-6">
                                     <div class="flex items-center space-x-4">
                                         <div class="w-16 h-10 rounded bg-gray-100 overflow-hidden flex-shrink-0">
-                                            <img src="{{ asset('storage/' . $res->vehicle->carModel->image_path) }}" class="object-cover w-full h-full" alt="Car">
+                                            <img src="{{ asset('storage/' . ($res->vehicle->carModel->image_path?? 'default-car.png')) }}" class="object-cover w-full h-full" alt="Car">
                                         </div>
                                         <div>
                                             <div class="font-bold text-slate-900">{{ $res->vehicle->carModel->brand }} {{ $res->vehicle->carModel->full_name }}</div>

@@ -24,7 +24,7 @@
                 <p class="text-xs font-medium text-slate-500 uppercase tracking-[0.3em]">Reservation #{{ $reservation->id }}</p>
 
                 <div class="mt-10 relative">
-                    <img src="{{ asset('storage/' . $reservation->vehicle->carModel->image_path) }}" class="w-full max-w-2xl mx-auto object-contain" alt="Car">
+                    <img src="{{ asset('storage/' . ($reservation->vehicle->carModel->image_path?? 'default-car.png')) }}" class="w-full max-w-2xl mx-auto object-contain" alt="Car">
                     <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent h-full w-full"></div>
                 </div>
             </div>

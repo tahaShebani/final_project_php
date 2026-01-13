@@ -2,7 +2,7 @@
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300">
     <div class="relative h-48 bg-gray-100">
-        <img src="{{ asset('storage/' . $car->image_path) }}" alt="{{ $car->model_name }}" class="w-full h-full object-contain p-4">
+        <img src="{{ asset('storage/' . ($car->image_path?? 'default-car.png')) }}" alt="{{ $car->model_name }}" class="w-full h-full object-contain p-4">
         <span class="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
             {{ $car->car_class }}
         </span>

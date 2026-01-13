@@ -7,7 +7,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <div>
-                <img src="{{ asset('storage/' . $carmodel->image_path) }}" class="w-full rounded-2xl shadow-lg" alt="{{ $carmodel->full_name }}">
+                <img src="{{ asset('storage/' . ($carmodel->image_path?? 'default-car.png')) }}" class="w-full rounded-2xl shadow-lg" alt="{{ $carmodel->full_name }}">
             </div>
 
             <div class="space-y-4">

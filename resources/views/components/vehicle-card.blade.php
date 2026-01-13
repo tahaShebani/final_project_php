@@ -2,7 +2,7 @@
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all">
     <div class="relative h-44 bg-gray-50">
-        <img src="{{ asset('storage/' . $vehicle->carModel->image_path) }}"
+        <img src="{{ asset('storage/' . ($vehicle->carModel->image_path?? 'default-car.png')) }}"
              alt="{{ $vehicle->carModel->model_name }}"
              class="w-full h-full object-contain p-4">
 

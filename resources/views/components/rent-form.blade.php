@@ -3,7 +3,7 @@
 <div class="max-w-6xl mx-auto my-12 p-8 bg-white shadow-lg rounded-xl border border-gray-100">
     <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/3 bg-gray-50 p-6 rounded-lg border border-gray-200">
-            <img src="{{ asset('storage/' . $vehicle->carModel->image_path) }}" alt="Car Image" class="w-full rounded-md mb-4 shadow-sm">
+            <img src="{{ asset('storage/' . ($vehicle->carModel->image_path?? 'default-car.png')) }}" alt="Car Image" class="w-full rounded-md mb-4 shadow-sm">
             <h3 class="text-xl font-bold text-gray-800 capitalize">{{ $vehicle->carModel->brand }} {{ $vehicle->carModel->full_name }}</h3>
             <p class="text-sm text-gray-500 mb-4">{{ $vehicle->currentLocation->name }}</p>
             <div class="border-t pt-4">
