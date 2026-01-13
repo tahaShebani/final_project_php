@@ -18,7 +18,6 @@ use SoftDeletes;
     protected $fillable = [
         'name',
         'address',
-        'new_column',
         'latitude',
         'longitude',
         'map_link',

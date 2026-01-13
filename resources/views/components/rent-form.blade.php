@@ -1,6 +1,6 @@
 @props(['vehicle', 'locations'])
 
-<div class="max-w-4xl mx-auto my-12 p-8 bg-white shadow-lg rounded-xl border border-gray-100">
+<div class="max-w-6xl mx-auto my-12 p-8 bg-white shadow-lg rounded-xl border border-gray-100">
     <div class="flex flex-col md:flex-row gap-8">
         <div class="md:w-1/3 bg-gray-50 p-6 rounded-lg border border-gray-200">
             <img src="{{ asset('storage/' . $vehicle->carModel->image_path) }}" alt="Car Image" class="w-full rounded-md mb-4 shadow-sm">

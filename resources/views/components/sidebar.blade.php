@@ -81,7 +81,7 @@
 
 <div class="mb-8">
     <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
-    <div class="flex gap-3">
+    <div class="flex flex-wrap gap-3 max-w-[200px] ">
         @php
             // Define your colors: 'value' => 'tailwind_class'
             $colors = [
@@ -89,7 +89,11 @@
                 'black' => 'bg-gray-900',
                 'white' => 'bg-white border-gray-300',
                 'blue' => 'bg-blue-600',
-                'grey' => 'bg-gray-500'
+                'grey' => 'bg-gray-500',
+                'gold' => 'bg-[#D4AF37]',
+                'silver' => 'bg-[#C0C0C0]',
+
+
             ];
         @endphp
 

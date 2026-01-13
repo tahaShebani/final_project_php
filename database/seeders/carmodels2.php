@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CarModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,36 +14,70 @@ class carmodels2 extends Seeder
      */
     public function run(): void
     {
-        $cars = [
-            // SUV (Class 1)
-            ['car_class' => 1, 'brand' => 'Toyota', 'model_name' => 'Land Cruiser', 'year' => '2024', 'fuel_type' => 'Diesel', 'transmission' => 'Automatic', 'seating_capacity' => 7, 'image_path' => 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 1, 'brand' => 'Jeep', 'model_name' => 'Wrangler', 'year' => '2023', 'fuel_type' => 'Petrol', 'transmission' => 'Manual', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 1, 'brand' => 'Ford', 'model_name' => 'Explorer', 'year' => '2022', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 7, 'image_path' => 'https://images.unsplash.com/photo-1566008885218-90abf9200ddb?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 1, 'brand' => 'Nissan', 'model_name' => 'Patrol', 'year' => '2024', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 8, 'image_path' => 'https://images.unsplash.com/photo-1621932953986-15fcfec8327c?auto=format&fit=crop&q=80&w=800'],
+       $cars = [
+            // Brand, Model, Class_ID, Year, Fuel, Seats, Transmission
+            // --- SEDANS (ID: 1) ---
+            ['Toyota', 'Camry', 1, 2024, 'Petrol', 5, 'Automatic'],
+            ['Toyota', 'Corolla', 1, 2023, 'Petrol', 5, 'Automatic'],
+            ['Hyundai', 'Elantra', 1, 2024, 'Petrol', 5, 'Automatic'],
+            ['Hyundai', 'Accent', 1, 2023, 'Petrol', 5, 'Automatic'],
+            ['Kia', 'Cerato', 1, 2024, 'Petrol', 5, 'Automatic'],
+            ['Kia', 'Pegas', 1, 2023, 'Petrol', 5, 'Automatic'],
+            ['Nissan', 'Sunny', 1, 2024, 'Petrol', 5, 'Automatic'],
+            ['Honda', 'Civic', 1, 2023, 'Petrol', 5, 'Automatic'],
+            ['Chevrolet', 'Malibu', 1, 2024, 'Petrol', 5, 'Automatic'],
+            ['Chery', 'Arrizo 5', 1, 2024, 'Petrol', 5, 'Automatic'],
 
-            // Sedan (Class 2)
-            ['car_class' => 2, 'brand' => 'Honda', 'model_name' => 'Civic', 'year' => '2023', 'fuel_type' => 'Hybrid', 'transmission' => 'CVT', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 2, 'brand' => 'BMW', 'model_name' => '5 Series', 'year' => '2024', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 2, 'brand' => 'Audi', 'model_name' => 'A6', 'year' => '2022', 'fuel_type' => 'Diesel', 'transmission' => 'Automatic', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1606152424101-ad9296f333a9?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 2, 'brand' => 'Toyota', 'model_name' => 'Camry', 'year' => '2024', 'fuel_type' => 'Hybrid', 'transmission' => 'Automatic', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&q=80&w=800'],
+            // --- SUVs (ID: 2) ---
+            ['Toyota', 'Land Cruiser Prado', 2, 2024, 'Petrol', 7, 'Automatic'],
+            ['Toyota', 'Hilux Double Cab', 2, 2023, 'Diesel', 5, 'Manual'],
+            ['Hyundai', 'Tucson', 2, 2024, 'Petrol', 5, 'Automatic'],
+            ['Hyundai', 'Santa Fe', 2, 2024, 'Petrol', 7, 'Automatic'],
+            ['Kia', 'Sportage', 2, 2024, 'Petrol', 5, 'Automatic'],
+            ['Kia', 'Sorento', 2, 2023, 'Petrol', 7, 'Automatic'],
+            ['Nissan', 'Patrol', 2, 2024, 'Petrol', 8, 'Automatic'],
+            ['Mitsubishi', 'Pajero', 2, 2023, 'Petrol', 7, 'Automatic'],
+            ['Jetour', 'X70 Plus', 2, 2024, 'Petrol', 7, 'Automatic'],
+            ['Chery', 'Tiggo 8 Pro', 2, 2024, 'Petrol', 7, 'Automatic'],
+            ['GAC', 'GS8', 2, 2024, 'Petrol', 7, 'Automatic'],
+            ['Ford', 'Explorer', 2, 2023, 'Petrol', 7, 'Automatic'],
+            ['Jeep', 'Grand Cherokee', 2, 2024, 'Petrol', 5, 'Automatic'],
 
-            // Luxury (Class 3)
-            ['car_class' => 3, 'brand' => 'Mercedes', 'model_name' => 'G-Wagon', 'year' => '2024', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 3, 'brand' => 'Rolls Royce', 'model_name' => 'Phantom', 'year' => '2023', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 4, 'image_path' => 'https://images.unsplash.com/photo-1631214548474-246d83831bc1?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 3, 'brand' => 'Bentley', 'model_name' => 'Continental', 'year' => '2024', 'fuel_type' => 'Petrol', 'transmission' => 'Automatic', 'seating_capacity' => 4, 'image_path' => 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&q=80&w=800'],
+            // --- ELECTRIC (ID: 3) ---
+            ['BYD', 'Han EV', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['BYD', 'Atto 3', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['Tesla', 'Model 3', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['Tesla', 'Model Y', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['Volkswagen', 'ID.4', 3, 2023, 'Electric', 5, 'Automatic'],
+            ['Hyundai', 'IONIQ 5', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['Kia', 'EV6', 3, 2024, 'Electric', 5, 'Automatic'],
+            ['Kaiyi', 'X3 Pro EV', 3, 2024, 'Electric', 5, 'Automatic'],
 
-            // Electric (Class 4)
-            ['car_class' => 4, 'brand' => 'Tesla', 'model_name' => 'Model X', 'year' => '2024', 'fuel_type' => 'Electric', 'transmission' => 'Automatic', 'seating_capacity' => 6, 'image_path' => 'https://images.unsplash.com/photo-1561580119-64628491da2d?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 4, 'brand' => 'Porsche', 'model_name' => 'Taycan', 'year' => '2023', 'fuel_type' => 'Electric', 'transmission' => 'Automatic', 'seating_capacity' => 4, 'image_path' => 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 4, 'brand' => 'Hyundai', 'model_name' => 'IONIQ 5', 'year' => '2024', 'fuel_type' => 'Electric', 'transmission' => 'Automatic', 'seating_capacity' => 5, 'image_path' => 'https://images.unsplash.com/photo-1664115160913-644917646545?auto=format&fit=crop&q=80&w=800'],
-            ['car_class' => 4, 'brand' => 'Rivian', 'model_name' => 'R1S', 'year' => '2024', 'fuel_type' => 'Electric', 'transmission' => 'Automatic', 'seating_capacity' => 7, 'image_path' => 'https://images.unsplash.com/photo-1681239920194-e356c9b5f543?auto=format&fit=crop&q=80&w=800'],
+            // --- LUXURY (ID: 4) ---
+            ['Mercedes-Benz', 'S-Class', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['Mercedes-Benz', 'GLE 53 AMG', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['BMW', '7 Series', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['BMW', 'X5', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['Audi', 'A8', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['Range Rover', 'Vogue', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['Lexus', 'LX 600', 4, 2024, 'Petrol', 7, 'Automatic'],
+            ['Porsche', 'Cayenne', 4, 2024, 'Petrol', 5, 'Automatic'],
+            ['Cadillac', 'Escalade', 4, 2023, 'Petrol', 7, 'Automatic'],
         ];
 
         foreach ($cars as $car) {
-            CarModel::updateOrCreate(
-                ['brand' => $car['brand'], 'model_name' => $car['model_name']], // Prevents duplicates if you run it twice
-                $car
-            );
+            DB::table('car_models')->insert([
+                'brand'            => $car[0],
+                'model_name'       => $car[1],
+                'car_class'        => $car[2], // ID: 1, 2, 3, or 4
+                'year'             => $car[3],
+                'fuel_type'        => $car[4],
+                'seating_capacity' => $car[5],
+                'transmission'     => $car[6],
+                'image_path'       => 'images/cars/' . strtolower(str_replace(' ', '-', $car[0] . '-' . $car[1])) . '.jpg',
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ]);
         }
     }
 }
