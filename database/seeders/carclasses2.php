@@ -14,10 +14,11 @@ class carclasses2 extends Seeder
     public function run(): void
     {
         CarClass::insert([
-    ['class' => 'suv', 'image_path' => 'cars/suv.jpg'],
     ['class' => 'sedan', 'image_path' => 'cars/sedan.jpg'],
-    ['class' => 'luxury', 'image_path' => 'cars/luxury.jpg'],
+    ['class' => 'suv', 'image_path' => 'cars/suv.jpg'],
     ['class' => 'electric', 'image_path' => 'cars/electric.jpg'],
+    ['class' => 'luxury', 'image_path' => 'cars/luxury.jpg'],
+
 ]);
     }
 }
