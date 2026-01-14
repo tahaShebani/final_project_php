@@ -22,7 +22,6 @@ class Transaction extends Model
         'vehicle_id',
         'customer_id',
         'total_amount',
-        'new_column',
         'actual_pickup_at',
         'actual_return_at',
         'pickup_location_id',
@@ -58,8 +57,7 @@ class Transaction extends Model
 
     public function vehicle(): BelongsTo
     {
-        return $this->belongsTo(Vehicle::class)
-        ->whereIn('status',['available','reserved']);
+        return $this->belongsTo(Vehicle::class);
     }
 
     public function customer(): BelongsTo

@@ -14,13 +14,13 @@ class InspectionReportsTable
     {
         return $table
             ->columns([
-                TextColumn::make('vehicle.id')
+                TextColumn::make('vehicle.vin')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('reservation.id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('inspector.id')
+                TextColumn::make('inspector.full_name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('type'),

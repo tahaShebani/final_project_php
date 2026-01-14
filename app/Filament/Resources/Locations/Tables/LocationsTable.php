@@ -1,47 +1,40 @@
 <?php
 
-namespace App\Filament\BookingAgent\Resources\Transactions\Tables;
+namespace App\Filament\Resources\Locations\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class TransactionsTable
+class LocationsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('reservation.id')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('vehicle.carModel.full_name')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('customer.full_name')
-                    ->numeric()
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('total_amount')
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('address')
+                    ->searchable(),
+                TextColumn::make('latitude')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('actual_pickup_at')
+                TextColumn::make('longitude')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('map_link')
+                    ->searchable(),
+                TextColumn::make('deleted_at')
                     ->dateTime()
-                    ->sortable(),
-                TextColumn::make('actual_return_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('pickupLocation.name')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('returnLocation.name')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('status'),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -50,16 +43,21 @@ class TransactionsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('is_active')
+                    ->boolean(),
             ])
             ->filters([
-                //
+                TrashedFilter::make(),
             ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }

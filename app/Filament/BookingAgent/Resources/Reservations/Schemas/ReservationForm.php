@@ -67,6 +67,7 @@ class ReservationForm
             ->components([
                 Select::make('customer_id')
                     ->relationship('customer', 'full_name')
+                    ->searchable()
                     ->required(),
                     Select::make('processed_by')
                     ->label('Processed By')
@@ -76,6 +77,7 @@ class ReservationForm
                     ->required(),
                 Select::make('vehicle_id')
                     ->relationship('vehicle', 'vin')
+                    ->searchable()
                     ->live()
                     ->required()
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))

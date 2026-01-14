@@ -34,7 +34,7 @@ class Reservation extends Controller
      */
     public function store(Request $request)
     {
-        $vehicle = Vehicle::find($request->vehicle_id);
+        $vehicle = Vehicle::findOrFail($request->vehicle_id);
         if( $vehicle->reserved_until<$request->pickup_date){
 
             $pickupDate = Carbon::parse($request->pickup_date);
@@ -66,7 +66,13 @@ class Reservation extends Controller
             'transaction_id'   =>  null,
             'paied_at'         => now(),
              ]);
-
+            if ($vehicle) {
+          $vehicle->update([
+                'status' => 'rented',
+                'reserved_until' => $request->return_date,
+                'returned_at_id'=>$request->return_location_id
+            ]);
+        }
              //هنا تحط المنطق متع التحقق من عملية الدفع كان ناجح او لا
              if(true){
              $payemnt->update([

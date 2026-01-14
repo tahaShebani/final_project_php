@@ -53,11 +53,13 @@ use SoftDeletes;
     }
 
     public function stillNotRented(){
-        if($this->transaction_id){
+        if($this->transaction_id && ($this->status!=='cancelled')){
 
              return false;
-        }else{
+        }else if(($this->status!=='cancelled')){
             return true;
+        }else{
+            return false;
         }
     }
     public function setRereserve(){

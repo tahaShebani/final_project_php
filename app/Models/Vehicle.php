@@ -113,6 +113,17 @@ class Vehicle extends Model
             }
         }
     }
+    public function hasReservations()
+    {
+        $reservations=$this->reservation;
+        if($reservations){
+            foreach($reservations as $reservation){
+                if($reservation->stillNotRented()){
+                    return true;
+                }
+            }
+        }
+    }
 
     public function carModel(): BelongsTo
     {

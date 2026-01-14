@@ -24,7 +24,7 @@ class ReservationsTable
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('vehicle.vin')
+                TextColumn::make('vehicle.carModel.full_name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('pickupLocation.name')

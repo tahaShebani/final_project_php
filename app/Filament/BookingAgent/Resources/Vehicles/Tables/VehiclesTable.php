@@ -43,7 +43,8 @@ class VehiclesTable
                 TextColumn::make('price')
                     ->money()
                     ->sortable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')
+                 ->searchable(),
                 TextColumn::make('currentLocation.name')
                 ->label('Current Location')
                     ->numeric()

@@ -13,15 +13,17 @@ class CreateTransaction extends CreateRecord
 
     protected function afterCreate(): void
     {
-        // 1. Get ALL data from the form (including non-database fields)
+
         $data = $this->form->getRawState();
 
-        // 2. The $this->record is your newly saved Reservation
+
         $transaction = $this->record;
 
-        $transaction->vehicle->status='rented';
-
-        // 3. Create the Payment manually
+       if ($transaction && $transaction->vehicle) {
+            $transaction->vehicle->update([
+            'status' => 'rented',
+        ]);
+}
 
     }
 }

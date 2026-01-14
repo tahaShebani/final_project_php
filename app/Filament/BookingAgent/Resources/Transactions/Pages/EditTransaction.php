@@ -23,19 +23,37 @@ class EditTransaction extends EditRecord
         $transaction = $this->record;
 
         if($transaction->status=='closed'){
-            $transaction->vehicle->status='available';
+            if($transaction->vehicle->hasReservations()){
+                 $transaction->vehicle->status='reserved';
+            }else{
+                 $transaction->vehicle->status='available';
+            }
+
         }
+
         if($data['payment_method']){
-            $price=$transaction->total_amount-$transaction->resevation->total_price;
+            if($data['payment_source']=='in-person'){
             Payment::create([
-            'reservations_id'  => null,
-            'amount'           => $price,
+            'reservations_id'  => $transaction->reservation_id,
+            'amount'           => $transaction->total_amount,
             'payment_method'   => $data['payment_method'], // Taken directly from the form
-            'payment_source'   => 'in-person',
+            'payment_source'   => $data['payment_source'],
             'processed_by'     => $transaction->processed_by,
-            'transaction_id'   => $transaction->id,
             'paied_at'         => now(),
+            'status'           =>'paid'
         ]);
+            }else{
+            Payment::create([
+            'reservations_id'  => $transaction->reservation_id,
+            'amount'           => $transaction->total_amount,
+            'payment_method'   => $data['payment_method'], // Taken directly from the form
+            'payment_source'   => $data['payment_source'],
+            'processed_by'     => $transaction->processed_by,
+            'paied_at'         => now(),
+             'status'           =>'unpaid'
+        ]);
+            }
+
         }
 
 

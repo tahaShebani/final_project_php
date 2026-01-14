@@ -30,7 +30,8 @@ class VehiclesTable
                 TextColumn::make('price')
                     ->money()
                     ->sortable(),
-                TextColumn::make('status'),
+                TextColumn::make('status')
+                ->searchable(),
                 TextColumn::make('reserved_until')
                     ->dateTime()
                     ->sortable(),

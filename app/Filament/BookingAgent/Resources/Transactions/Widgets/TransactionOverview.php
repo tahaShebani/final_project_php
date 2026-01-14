@@ -21,6 +21,11 @@ class TransactionOverview extends StatsOverviewWidget
                 ->description('Completed successfully')
                 ->descriptionIcon('heroicon-m-check-circle')
                 ->color('success'),
+
+            Stat::make('Need Inspactions', Transaction::where('status', 'need_inspaction')->count())
+                ->description('Need to be tested')
+                ->descriptionIcon('heroicon-m-clock')
+                ->color('waiting'),
         ];
     }
 }
