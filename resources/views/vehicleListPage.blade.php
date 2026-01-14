@@ -5,7 +5,7 @@
         <div class="flex flex-col md:flex-row gap-8">
 
             <aside class="w-full md:w-1/4 lg:w-1/5">
-                <x-sidebar  :pickup-date="$pickup_date" :pickup-location="$pickup_location"></x-sidebar>
+                <x-sidebar  :pickup-date="$pickup_date" :pickup-location="$pickup_location" :brands="$brands"></x-sidebar>
             </aside>
 
             <main class="flex-1">

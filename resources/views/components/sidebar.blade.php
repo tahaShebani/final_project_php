@@ -1,5 +1,6 @@
 @props(['pickup_date' => request('pickup_date'),
-    'pickup_location' => request('pickup_location')])
+    'pickup_location' => request('pickup_location'),
+    'brands'=>request('brands')])
 
 <aside class="w-full md:w-64 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
     <form action="{{ route('searchFilter') }}" method="GET" >
@@ -11,9 +12,12 @@
         <label class="block text-sm font-semibold text-gray-700 mb-2">Car Brand</label>
         <select  name="model" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
             <option >All Brands</option>
-            <option value="toyota">Toyota</option>
+            @foreach ($brands as $brand)
+            <option value="{{ $brand->brand }}">{{$brand->brand}}</option>
+            @endforeach
+            {{-- <option value="toyota">Toyota</option>
             <option value="honda">Honda</option>
-            <option value="bmw">BMW</option>
+            <option value="bmw">BMW</option> --}}
         </select>
     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarModel;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -27,8 +28,11 @@ class ViewVehicles extends Controller
 
         $pickup_date=$request->pickup_date;
         $pickup_location=$request->pickup_location;
-        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location'));
+        $brands=CarModel::select('brand')->distinct()->get();
+        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location','brands'));
     }
+
+
         public function viewAllFilter(Request $request)
     {
 
@@ -46,7 +50,7 @@ class ViewVehicles extends Controller
            $query->classes($selectedClasses);
         }
 
-        if($request->has('models'))
+        if($request->has('model'))
         $query->modeles($request->model);
 
         if($request->has('min_price')||$request->has('max_price'))
@@ -66,6 +70,7 @@ class ViewVehicles extends Controller
 
         $pickup_date=$request->pickup_date;
         $pickup_location=$request->pickup_location;
-        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location'));
+        $brands=CarModel::select('brand')->distinct()->get();
+        return view('vehicleListPage', compact('vehicles','pickup_date','pickup_location','brands'));
     }
 }
