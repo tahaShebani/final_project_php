@@ -6,7 +6,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <x-input-label for="pickup_location" value="Pickup Location" />
-                <select name="pickup_location" id="pickup_location" class="w-full mt-1 px-4 py-3 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <select required name="pickup_location" id="pickup_location" class="w-full mt-1 px-4 py-3 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option value="">Select Pickup City</option>
                     @foreach($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -16,7 +16,7 @@
 
             <div>
                 <x-input-label for="pickup_date" value="Pickup Date" />
-                <x-text-input id="pickup_date" name="pickup_date" type="date" min="{{ now()->format('Y-m-d') }}" class="block px-4 py-3 mt-1 w-full" />
+                <x-text-input id="pickup_date" @required(true) name="pickup_date" type="date" min="{{ now()->format('Y-m-d') }}" class="block px-4 py-3 mt-1 w-full" />
             </div>
         </div>
 
