@@ -10,6 +10,7 @@ use App\Observers\InspectionReportObserver;
 use App\Observers\MaintenanceReportObserver;
 use App\Observers\ReservationObserver;
 use App\Observers\TransactionObserver;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('production')) {
+        URL::forceScheme('https');
+    }
         InspectionReport::observe(InspectionReportObserver::class);
         MaintenanceReport::observe(MaintenanceReportObserver::class);
          Transaction::observe(TransactionObserver::class);
