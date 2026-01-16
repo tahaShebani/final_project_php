@@ -45,8 +45,6 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
             ])
             ->resources([
-            ReservationResource::class,
-            TransactionResource::class
             ])
             ->middleware([
                 EncryptCookies::class,

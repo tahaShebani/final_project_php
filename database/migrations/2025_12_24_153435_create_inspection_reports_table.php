@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('mileage');
             $table->enum('status', ["excellent",'good','fair','needs_cleaning','needs_maintenance','out_of_service']);
             $table->text('notes');
+            $table->softDeletes();  
             $table->timestamps();
         });
 
