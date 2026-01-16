@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationForm
 {
+
  public static function vehicleChose(Get $get, Set $set): void
 {
 
@@ -25,12 +26,17 @@ class ReservationForm
     $locationId = request('pickup_location_id');
         if (!$vehicleId) return;
 
-        $vehicle = Vehicle::find($vehicleId);
-        $location = Location::find($locationId);
+        $vehicle = Vehicle::findOrFail($vehicleId);
+        $disabledDates=$vehicle->disabledDates();
 
         if ($vehicle) {
             $set('vehicle_id', $vehicle->id);
-            $set('pickup_location_id', $location->id);
+            if($vehicle->status=='available'){
+             $set('pickup_location_id', $locationId);
+            }else{
+            $set('pickup_location_id', $vehicle->returned_at_id);
+            }
+
         }
 }
 
@@ -88,6 +94,7 @@ class ReservationForm
                     ->live()
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
                     ->afterStateHydrated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
+                    ->afterStateHydrated(fn (Get $get, Set $set) => self::vehicleChose($get, $set))
                     ->required(),
                 Select::make('dropoff_location_id')
                     ->relationship('dropoffLocation', 'name')
@@ -98,12 +105,29 @@ class ReservationForm
                     ->required(),
                 DateTimePicker::make('pickup_date')
                 ->live()
-                    ->required()
-                    ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
+                ->minDate(now())
+                ->disabledDates(function (Get $get) {
+                    $vehicleId = $get('vehicle_id');
+                    if (!$vehicleId) return [];
+
+                    $vehicle = Vehicle::findOrFail($vehicleId);
+                    return $vehicle ? $vehicle->disabledDates() : [];
+                })
+                ->required()
+                ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
                 DateTimePicker::make('return_date')
                 ->live()
-                    ->required()
-                    ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
+                ->disabledDates(function (Get $get) {
+                    $vehicleId = $get('vehicle_id');
+                    if (!$vehicleId) return [];
+
+                    $vehicle = Vehicle::findOrFail($vehicleId);
+                    return $vehicle ? $vehicle->disabledDates() : [];
+                })
+                ->required()
+                ->disabled(fn (Get $get): bool => empty($get('pickup_date')))
+                ->minDate(fn (Get $get) => $get('pickup_date')? Carbon::parse($get('pickup_date'))->addDay(): null)
+                ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
                 Select::make('status')
                 ->searchable()
                     ->options([ 'pending' => 'Pending','cancelled' => 'Cancelled'])

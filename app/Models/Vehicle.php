@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -113,6 +114,38 @@ class Vehicle extends Model
             }
         }
     }
+    public function rereserveAllAfter($res)
+    {
+        $reservations=Reservation::where('Vehicle_id',$this->id)->where('pickup_date','>',$res->pickup_date)->where('status','!=','canceled');
+        if($reservations){
+            foreach($reservations as $reservation){
+                if($reservation->stillNotRented()){
+                    $reservation->setRereserve();
+                }
+            }
+        }
+    }
+
+    public function disabledDates()
+    {
+        $reservations=Reservation::where('Vehicle_id',$this->id)->where('status','!=','canceled')->get();;
+        $disabledDates = [];
+
+        foreach ($reservations as $reservation) {
+            $period = CarbonPeriod::create(
+                $reservation->pickup_date,
+                $reservation->return_date
+            );
+            foreach ($period as $date) {
+                $disabledDates[] = $date->format('Y-m-d');
+            }
+        }
+
+
+        return $disabledDates;
+
+    }
+
     public function hasReservations()
     {
         $reservations=$this->reservation;

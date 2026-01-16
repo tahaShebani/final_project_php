@@ -13,10 +13,9 @@
                     @endforeach
                 </select>
             </div>
-
             <div>
-                <x-input-label for="pickup_date" value="Pickup Date" />
-                <x-text-input id="pickup_date"  name="pickup_date" type="date" min="{{ now()->format('Y-m-d') }}" class="block px-4 py-3 mt-1 w-full" />
+            <x-input-label for="pickup_date" value="Pickup Date" />
+            <input required type="date" name="pickup_date" id="pickup_date" min="{{ now()->format('Y-m-d') }}" class="w-full mt-1 px-4 py-3 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
             </div>
         </div>
 

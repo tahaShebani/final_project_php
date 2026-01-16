@@ -67,8 +67,13 @@ class Reservation extends Controller
             'paied_at'         => now(),
              ]);
             if ($vehicle) {
+                if($vehicle->status=="available")
+                    $status='reserved';
+                else{
+                    $status=$vehicle->status;
+                }
           $vehicle->update([
-                'status' => 'rented',
+                'status' => $status,
                 'reserved_until' => $request->return_date,
                 'returned_at_id'=>$request->return_location_id
             ]);

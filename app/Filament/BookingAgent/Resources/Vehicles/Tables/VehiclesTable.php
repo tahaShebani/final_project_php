@@ -21,7 +21,7 @@ class VehiclesTable
     public static function configure(Table $table): Table
     {
         return $table->query(
-                Vehicle::query()->where('status','available')
+                Vehicle::query()->whereNotIn('status',['out_of_service','maintenance'])
             )
             ->columns([
                 TextColumn::make('carModel.model_name')
@@ -47,6 +47,7 @@ class VehiclesTable
                  ->searchable(),
                 TextColumn::make('currentLocation.name')
                 ->label('Current Location')
+                ->searchable()
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
