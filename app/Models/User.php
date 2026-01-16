@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
 
@@ -63,5 +63,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match ($panel->getId()) {
+            'admin'  => $this->role === 'admin',
+            'operation_employee'  => in_array($this->role, ['admin', 'operation_employee']),
+            'booking_agent'  => in_array($this->role, ['admin', 'booking_agent']),
+            default  => false,
+        };
     }
 }
