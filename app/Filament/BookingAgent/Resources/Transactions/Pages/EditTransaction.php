@@ -26,10 +26,10 @@ class EditTransaction extends EditRecord
             $transaction->vehicle->status='available';
         }
         if($data['payment_method']){
-            $price=$transaction->total_amount-$transaction->resevation->total_price;
+            
             Payment::create([
-            'reservations_id'  => null,
-            'amount'           => $price,
+            'reservations_id'  => $transaction->resevation->id,
+            'amount'           => $transaction->total_amount,
             'payment_method'   => $data['payment_method'], // Taken directly from the form
             'payment_source'   => 'in-person',
             'processed_by'     => $transaction->processed_by,
