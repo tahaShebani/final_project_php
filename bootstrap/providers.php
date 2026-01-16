@@ -5,4 +5,6 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\Filament\BookingAgentPanelProvider::class,
     App\Providers\Filament\OperationEmployeePanelProvider::class,
+    App\Providers\FortifyServiceProvider::class,
+    App\Providers\JetstreamServiceProvider::class,
 ];

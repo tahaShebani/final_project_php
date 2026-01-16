@@ -44,10 +44,10 @@ class Vehicle extends Model
         ];
     }
 
-    public function carModel(): BelongsTo
-    {
-        return $this->belongsTo(CarModel::class,'car_model');
-    }
+   public function carModel()
+{
+    return $this->belongsTo(CarModel::class, 'car_model_id');
+}
 
     public function currentLocation(): BelongsTo
     {

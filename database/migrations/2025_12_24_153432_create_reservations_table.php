@@ -16,20 +16,20 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('users');
-            $table->unsignedBigInteger('vehicle_id');
-            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+            $table->unsignedBigInteger('car_model_id');
             $table->unsignedBigInteger('pickup_location_id');
-            $table->foreign('pickup_location_id')->references('id')->on('locations');
             $table->unsignedBigInteger('dropoff_location_id');
-            $table->foreign('dropoff_location_id')->references('id')->on('locations');
             $table->timestamp('reserved_at');
             $table->timestamp('expires_at')->nullable();
             $table->dateTime('pickup_date');
             $table->dateTime('return_date');
-            $table->enum('status', ["pending",'confirmed','cancelled']);
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending'); // حالة الحجز
             $table->double('total_price');
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('car_model_id')->references('id')->on('car_models')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();

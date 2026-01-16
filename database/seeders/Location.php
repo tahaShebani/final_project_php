@@ -2,32 +2,37 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 
-class Location extends Seeder
+class LocationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $faker = Faker::create();
-        foreach (range(1, 10) as $index) {
-            $lat = $faker->latitude();
-            $long = $faker->longitude();
-
-            DB::table('locations')->insert([
-                'name' => $faker->company() . ' Office',
-                'address' => $faker->address(),
-                'latitude' => $lat,
-                'longitude' => $long,
-                'map_link' => "https://www.google.com/maps/search/?api=1&query={$lat},{$long}",
+        DB::table('locations')->insert([
+            [
+                'id' => 1,
+                'name' => 'طرابلس',
+                'address' => 'طرابلس، ليبيا',
+                'latitude' => 32.8872,
+                'longitude' => 13.1913,
+                'map_link' => 'https://www.google.com/maps/search/?api=1&query=32.8872,13.1913',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
-        }
+            ],
+            [
+                'id' => 2,
+                'name' => 'بنغازي',
+                'address' => 'بنغازي، ليبيا',
+                'latitude' => 32.1167,
+                'longitude' => 20.0667,
+                'map_link' => 'https://www.google.com/maps/search/?api=1&query=32.1167,20.0667',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

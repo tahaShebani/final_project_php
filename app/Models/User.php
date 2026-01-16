@@ -2,37 +2,54 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
+    use HasApiTokens;
+
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
-    use SoftDeletes;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
+
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
-        'full_name',
+        'name',
         'email',
         'password',
-        'role',
-        'phone_number',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     /**
@@ -43,34 +60,8 @@ class User extends Authenticatable implements FilamentUser
     protected function casts(): array
     {
         return [
-            'id' => 'integer',
-            'password'=>'hashed',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
         ];
     }
-    public function getNameAttribute(): string
-{
-    return $this->full_name ?? 'User';
-}
-public function employeeProfile()
-    {
-        return $this->hasOne(EmployeeProfile::class);
-    }
-
-    // Define the relationship to the CustomerProfile model
-    public function customerProfile()
-    {
-        return $this->hasOne(CustomerProfile::class);
-    }
-public function canAccessPanel(Panel $panel): bool
-    {
-        return match ($panel->getId()) {
-            'admin'  => $this->role === 'admin',
-            'operation_employee'  => in_array($this->role, ['admin', 'operation_employee']),
-            'booking_agent'  => in_array($this->role, ['admin', 'booking_agent']),
-            default  => false,
-        };
-    }
-
 }

@@ -97,7 +97,6 @@ public static function updateTotalPrice(Get $get, Set $set): void
                     ->numeric()
                     ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
                 DateTimePicker::make('actual_pickup_at')
-                ->afterStateHydrated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set))
                 ->live()
                 ->default(now())
                     ->required(),
