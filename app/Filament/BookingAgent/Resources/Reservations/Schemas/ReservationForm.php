@@ -105,6 +105,7 @@ class ReservationForm
                     ->required(),
                 DateTimePicker::make('pickup_date')
                 ->live()
+                ->native(false)
                 ->minDate(now())
                 ->disabledDates(function (Get $get) {
                     $vehicleId = $get('vehicle_id');
@@ -117,6 +118,7 @@ class ReservationForm
                 ->afterStateUpdated(fn (Get $get, Set $set) => self::updateTotalPrice($get, $set)),
                 DateTimePicker::make('return_date')
                 ->live()
+                ->native(false)
                 ->disabledDates(function (Get $get) {
                     $vehicleId = $get('vehicle_id');
                     if (!$vehicleId) return [];

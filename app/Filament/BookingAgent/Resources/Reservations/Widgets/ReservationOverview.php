@@ -16,10 +16,15 @@ class ReservationOverview extends StatsOverviewWidget
             ->icon('heroicon-m-clock')
             ->description('Awaiting action'),
 
-        Stat::make('Confirmed', Reservation::where('status', 'confirmed')->count())
+        Stat::make('Confirmed', Reservation::where('status', 'confirmed')->where(function ($query) {$query->whereRelation('transaction', 'status', 'open')->orWhereDoesntHave('transaction');})->count())
             ->color('success')
             ->icon('heroicon-m-check-badge')
             ->description('Active bookings'),
+
+        Stat::make('Ended', Reservation::where('status', 'confirmed')->whereRelation('transaction','status','closed')->count())
+            ->color('success')
+            ->icon('heroicon-m-check-badge')
+            ->description('Ended bookings'),
 
         Stat::make('Cancelled', Reservation::where('status', 'cancelled')->count())
             ->color('gray')
